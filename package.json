@@ -1,0 +1,19 @@
+{
+  "name": "happy",
+  "version": "0.0.0",
+  "description": "Happy web framework",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "",
+  "keywords": [
+    "web",
+    "framework"
+  ],
+  "author": "Artem Smirnov",
+  "license": "BSD",
+  "dependencies": {
+    "coffee-script": "~1.4.0"
+  }
+}
