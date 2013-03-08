@@ -4,20 +4,20 @@ Router = require "./router"
 Request = require "./request"
 Response = require "./response"
 
-###
-Application class
-
-@example How to create simoke application
-  app = new Happy
-  app.route hello: "/hello/:name"
-  app.param name: /[A-Z][a-z]*/
-  app.param name: (req, res, next) ->
-    req.name = req.params.name
-    next()
-  app.action hello (req, res) ->
-    res.end "Hello, #{req.name}!"
-###
 class Happy
+	###
+	Application class
+
+	@example How to create simple application
+	  app = new Happy
+	  app.route hello: "/hello/:name"
+	  app.param name: /[A-Z][a-z]*/
+	  app.param name: (req, res, next) ->
+	    req.name = req.params.name
+	    next()
+	  app.action hello (req, res) ->
+	    res.end "Hello, #{req.name}!"
+	###
 	constructor: ->
 		@paramHandlers = {}
 		@actionHandlers = {}
