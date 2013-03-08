@@ -4,7 +4,9 @@ Router = require "./router"
 Request = require "./request"
 Response = require "./response"
 
-# Application class
+###
+Application class
+###
 class Happy
 	constructor: ->
 		@paramHandlers = {}
