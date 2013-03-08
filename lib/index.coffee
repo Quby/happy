@@ -13,6 +13,8 @@ Application class
   app.param name: (req, res, next) ->
     req.name = req.params.name
     next()
+  app.action hello (req, res) ->
+    res.end "Hello, #{req.name}!"
 ###
 class Happy
 	constructor: ->
