@@ -18,9 +18,26 @@ app.action hello (req, res) ->
 Creates new application as global object
 
 ##Instance methods
+
 ###Happy::route [event:] path
 Connect events with actions
 ####Example
-```
+```coffee
 app.route event_a: event_b: event_c: "/route/:param"
+```
+
+###Happy::param name: re
+Attach regular expression to param
+####Example:
+```coffee
+app.param id: /^\d+$/
+```
+
+###Happy::param name: cb(req, res, next)
+Attach action to param
+####Example:
+```coffee
+app.param page: (req, res, next) ->
+	req.page = parseInt req.page
+	next()
 ```

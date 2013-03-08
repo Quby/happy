@@ -18,15 +18,6 @@ class Happy
 	route: (pattern) ->
 		@router.route pattern
 	
-	###
-	This is generic method param
-	@overload param(re)
-	  Attach regular expression to param
-	  @param re [name: RegExp]
-	@overload param(cb)
-	  Attach action to param
-	  @param cb [name: Function<Request, Response, Function>]
-	###
 	param: (x) ->
 		name = key x
 		x = x[name]
