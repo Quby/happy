@@ -4,8 +4,8 @@ Router = require "./router"
 Request = require "./request"
 Response = require "./response"
 
-##class Happy
-#Создает новый экземпляр приложения
+# ##class Happy
+# Создает новый экземпляр приложения
 class Happy
 	constructor: ->
 		@paramHandlers = {}
@@ -18,7 +18,7 @@ class Happy
 		@response = class extends Response
 
 # ##Happy::route event:... route
-#Присоединяет к маршруту события
+# Присоединяет к маршруту события
 #	app.route event1: event2: event3: "/route/:param"
 Happy::route = (pattern) ->
 	@router.route pattern
