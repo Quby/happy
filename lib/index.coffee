@@ -6,6 +6,8 @@ Response = require "./response"
 
 ###
 Application class
+@example How to create simple application
+  app = new Happy
 ###
 class Happy
 	constructor: ->
