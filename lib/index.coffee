@@ -38,8 +38,10 @@ class Happy
 	###
 	This is generic method param
 	@overload param(re)
+	  Attach regular expression to param
 	  @param re [name: RegExp]
 	@overload param(cb)
+	  Attach action to param
 	  @param cb [name: Function<Request, Response, Function>]
 	###
 	param: (x) ->
@@ -50,9 +52,11 @@ class Happy
 			@router.param name, x
 		if x instanceof Function
 			@paramHandlers[name] = x
-
-	# ##Happy::action event: cb(req, res, next)
-	# Вызывает cb при встрече события event
+	
+	###
+	Attach action to event
+	@param x [event: Function<Request, Response, Function>]
+	###
 	action: (x) ->
 		action = key x
 		handler = x[action]
@@ -85,23 +89,32 @@ class Happy
 				res.end "404"
 		next()
 
-	# ##Happy::listen ip, port
-	# Запускает сервер
+	###
+	@overload listen(ip, port)
+	@overload listen(port)
+	###
 	listen: ->
 		@server = http.createServer (@onRequest.bind @)
 		@server.listen arguments...
 
-	# ##Happy::plugin cb(app)
-	# Позволяет плагину интегрировать свои функции в приложение
+	###
+	@overload plugin(plugin)
+	  Plug plugin with current environment
+	  @param plugin [Object]
+	@overload plugin(plugin)
+	  Plug plugin
+	  @param plugin [Function<Happy>]
+	###
 	plugin: (plugin) ->
 		if typeof plugin is "object"
 			if plugin[@config.environment]?
 				plugin[@config.environment] @
 		else
 			plugin @
-
-	# ##Happy::environment env
-	# Устанавливает окружение
+	
+	###
+	@param environment [String]
+	###
 	environment: (environment) ->
 		@config.environment = environment
 
