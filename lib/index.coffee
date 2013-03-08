@@ -36,6 +36,7 @@ class Happy
 		@router.route pattern
 	
 	###
+	This is generic method param
 	@overload param(re)
 	  @param re name: RegExp
 	@overload param(cb)
