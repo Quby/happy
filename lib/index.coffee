@@ -15,11 +15,6 @@ class Happy
 		@request = class extends Request
 		@response = class extends Response
 	
-	###
-	Connect events with actions
-	@example
-	  app.route event_a: event_b: event_c: "/route/:param"
-	###
 	route: (pattern) ->
 		@router.route pattern
 	

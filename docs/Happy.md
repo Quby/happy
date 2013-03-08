@@ -1,7 +1,7 @@
-## Class: Happy
+#Class: Happy
 Application class
 
-###Example:
+##Example:
 ```coffee
 app = new Happy
 app.route hello: "/hello/:name"
@@ -11,4 +11,16 @@ app.param name: (req, res, next) ->
 	next()
 app.action hello (req, res) ->
 	res.end "Hello, #{req.name}!"
+```
+
+##Static methods
+###Happy.global()
+Creates new application as global object
+
+##Instance methods
+###Happy::route [event:] path
+Connect events with actions
+####Example
+```
+app.route event_a: event_b: event_c: "/route/:param"
 ```
