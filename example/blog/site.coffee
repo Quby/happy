@@ -3,7 +3,9 @@ jade = require "happy-jade"
 
 Happy.global()
 
-plugin jade.dev
+environment "dev"
+
+plugin jade
 
 require "./routes"
 require "./actions/actions"
