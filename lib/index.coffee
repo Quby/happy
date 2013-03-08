@@ -28,8 +28,8 @@ class Happy
 		@response = class extends Response
 	
 	# Connect events with actions
-	# @param pattern \[event:\] String
-	#	app.route event1: event2: event3: "/route/:param"
+	# @example
+	#   app.route event_a: event_b: event_c: "/route/:param"
 	route: (pattern) ->
 		@router.route pattern
 
