@@ -36,8 +36,10 @@ class Happy
 		@router.route pattern
 	
 	###
-	@overload param(name: RegExp)
-	@overload param(name: Function<Request, Response, Function>)
+	@overload param(re)
+	  @param re name: RegExp
+	@overload param(cb)
+	  @param cb name: Function<Request, Response, Function>
 	###
 	param: (x) ->
 		name = key x
