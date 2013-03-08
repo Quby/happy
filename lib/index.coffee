@@ -38,9 +38,9 @@ class Happy
 	###
 	This is generic method param
 	@overload param(re)
-	  @param re name: RegExp
+	  @param re [name: RegExp]
 	@overload param(cb)
-	  @param cb name: Function<Request, Response, Function>
+	  @param cb [name: Function<Request, Response, Function>]
 	###
 	param: (x) ->
 		name = key x
