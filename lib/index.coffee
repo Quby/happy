@@ -5,7 +5,8 @@ Request = require "./request"
 Response = require "./response"
 
 # Application class
-# @example app = new Happy
+# @example How to create application
+#    app = new Happy
 class Happy
 	constructor: ->
 		@paramHandlers = {}
