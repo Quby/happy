@@ -16,7 +16,6 @@ Response = require "./response"
 #    
 #    app.action hello (req, res) ->
 #        res.end "Hello, #{req.name}!"
-
 class Happy
 	constructor: ->
 		@paramHandlers = {}
