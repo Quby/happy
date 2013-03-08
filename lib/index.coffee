@@ -27,7 +27,8 @@ class Happy
 		@request = class extends Request
 		@response = class extends Response
 	
-	# Присоединяет к маршруту события
+	# Connect events with actions
+	# @param [[tag:] String] pattern
 	#	app.route event1: event2: event3: "/route/:param"
 	route: (pattern) ->
 		@router.route pattern
