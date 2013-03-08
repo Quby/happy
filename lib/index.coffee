@@ -11,8 +11,8 @@ Application class
   app.route hello: "/hello/:name"
   app.param name: /[A-Z][a-z]*/
   app.param name: (req, res, next) ->
-    req.name = req.params.name
-    next()
+  	req.name = req.params.name
+  	next()
 ###
 class Happy
 	constructor: ->
