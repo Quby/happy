@@ -34,73 +34,73 @@ class Happy
 	###
 	route: (pattern) ->
 		@router.route pattern
+	
+	# ##Happy::param name: /RegExp/
+	# При каждый встрече параметра name производит проверку на соответствие
+	# ##Happy::param name: cb(req, res, next)
+	# При каждой встрече параметра name вызывает cb
+	param: (x) ->
+		name = key x
+		x = x[name]
+	
+		if x instanceof RegExp
+			@router.param name, x
+		if x instanceof Function
+			@paramHandlers[name] = x
 
-# ##Happy::param name: /RegExp/
-# При каждый встрече параметра name производит проверку на соответствие
-# ##Happy::param name: cb(req, res, next)
-# При каждой встрече параметра name вызывает cb
-Happy::param = (x) ->
-	name = key x
-	x = x[name]
+	# ##Happy::action event: cb(req, res, next)
+	# Вызывает cb при встрече события event
+	action: (x) ->
+		action = key x
+		handler = x[action]
 	
-	if x instanceof RegExp
-		@router.param name, x
-	if x instanceof Function
-		@paramHandlers[name] = x
+		@actionHandlers[action] ?= []
+		@actionHandlers[action].push handler
 
-# ##Happy::action event: cb(req, res, next)
-# Вызывает cb при встрече события event
-Happy::action = (x) ->
-	action = key x
-	handler = x[action]
+	onRequest: (req, res) ->
+		unless @extended
+			@request.prototype.__proto__.__proto__ = req.__proto__
+			@response.prototype.__proto__.__proto__ = res.__proto__
+			@extended = true
 	
-	@actionHandlers[action] ?= []
-	@actionHandlers[action].push handler
+		req.__proto__ = @request.prototype
+		res.__proto__ = @response.prototype
+		[params, actions] = @router.match req.method, req.url
+		req.params = params
+		callbacks = []
+	
+		for param of params
+			if @paramHandlers[param]?
+				callbacks.push @paramHandlers[param]
+		for action in actions
+			callbacks = callbacks.concat (@actionHandlers[action] ? [])
+	
+		next = () ->
+			unless callbacks.length is 0
+				callbacks.shift() req, res, next
+			else
+				res.end "404"
+		next()
 
-Happy::onRequest = (req, res) ->
-	unless @extended
-		@request.prototype.__proto__.__proto__ = req.__proto__
-		@response.prototype.__proto__.__proto__ = res.__proto__
-		@extended = true
-	
-	req.__proto__ = @request.prototype
-	res.__proto__ = @response.prototype
-	[params, actions] = @router.match req.method, req.url
-	req.params = params
-	callbacks = []
-	
-	for param of params
-		if @paramHandlers[param]?
-			callbacks.push @paramHandlers[param]
-	for action in actions
-		callbacks = callbacks.concat (@actionHandlers[action] ? [])
-	
-	next = () ->
-		unless callbacks.length is 0
-			callbacks.shift() req, res, next
+	# ##Happy::listen ip, port
+	# Запускает сервер
+	listen: ->
+		@server = http.createServer (@onRequest.bind @)
+		@server.listen arguments...
+
+	# ##Happy::plugin cb(app)
+	# Позволяет плагину интегрировать свои функции в приложение
+	plugin: (plugin) ->
+		if typeof plugin is "object"
+			if plugin[@config.environment]?
+				plugin[@config.environment] @
 		else
-			res.end "404"
-	next()
+			plugin @
 
-# ##Happy::listen ip, port
-# Запускает сервер
-Happy::listen = ->
-	@server = http.createServer (@onRequest.bind @)
-	@server.listen arguments...
-
-# ##Happy::plugin cb(app)
-# Позволяет плагину интегрировать свои функции в приложение
-Happy::plugin = (plugin) ->
-	if typeof plugin is "object"
-		if plugin[@config.environment]?
-			plugin[@config.environment] @
-	else
-		plugin @
-
-# ##Happy::environment env
-# Устанавливает окружение
-Happy::environment = (environment) ->
-	@config.environment = environment
+	# ##Happy::environment env
+	# Устанавливает окружение
+	environment: (environment) ->
+		@config.environment = environment
 
 # ##Happy.global()
 # Создает новое приложение и прописывает его прототипом в глобольное пространство имен
