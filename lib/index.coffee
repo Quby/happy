@@ -35,10 +35,10 @@ class Happy
 	route: (pattern) ->
 		@router.route pattern
 	
-	# ##Happy::param name: /RegExp/
-	# При каждый встрече параметра name производит проверку на соответствие
-	# ##Happy::param name: cb(req, res, next)
-	# При каждой встрече параметра name вызывает cb
+	###
+	@overload param(name: RegExp)
+	@overload param(name: Function<Request, Response, Function>)
+	###
 	param: (x) ->
 		name = key x
 		x = x[name]
