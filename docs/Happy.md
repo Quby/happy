@@ -2,7 +2,7 @@
 Application class
 
 ###Example:
-```
+```coffee
 app = new Happy
 app.route hello: "/hello/:name"
 app.param name: /^[A-Z][a-z]*$/
