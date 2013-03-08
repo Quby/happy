@@ -8,6 +8,7 @@ Response = require "./response"
 Application class
 @example How to create simple application
   app = new Happy
+  app.route hello: "/hello/:name"
 ###
 class Happy
 	constructor: ->
