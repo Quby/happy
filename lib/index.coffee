@@ -9,6 +9,10 @@ Application class
 @example How to create simple application
   app = new Happy
   app.route hello: "/hello/:name"
+  app.param name: /[A-Z][a-z]*/
+  app.param name: (req, res, next) ->
+    req.name = req.params.name
+    next()
 ###
 class Happy
 	constructor: ->
