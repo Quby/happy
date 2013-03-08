@@ -4,8 +4,7 @@ Router = require "./router"
 Request = require "./request"
 Response = require "./response"
 
-# ##class Happy
-# Создает новый экземпляр приложения
+# Класс приложения
 class Happy
 	constructor: ->
 		@paramHandlers = {}
@@ -16,12 +15,11 @@ class Happy
 		@extended = false
 		@request = class extends Request
 		@response = class extends Response
-
-# ##Happy::route event:... route
-# Присоединяет к маршруту события
-#	app.route event1: event2: event3: "/route/:param"
-Happy::route = (pattern) ->
-	@router.route pattern
+	
+	route: (pattern) ->
+		# Присоединяет к маршруту события
+		#	app.route event1: event2: event3: "/route/:param"
+		@router.route pattern
 
 # ##Happy::param name: /RegExp/
 # При каждый встрече параметра name производит проверку на соответствие
