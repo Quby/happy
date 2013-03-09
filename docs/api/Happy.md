@@ -63,3 +63,26 @@ app.listen 3030
 ```coffee
 app.listen 127.0.0.1, 3030
 ```
+
+###environment env
+Set environment to `env`
+```coffee
+app.environment "dev"
+```
+
+###plugin {environment: fn}
+Apply function `fn` for current environment to application
+```coffee
+app.plugin
+	development: (app) ->
+		#do some work with app
+	production: (app) ->
+		#do some work with app
+```
+
+###plugin fn
+Apply function `fn` to application
+```coffee
+app.plugin (app) ->
+	#do some work with app
+```

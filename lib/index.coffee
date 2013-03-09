@@ -58,23 +58,11 @@ class Happy
 			else
 				res.end "404"
 		next()
-
-	###
-	@overload listen(ip, port)
-	@overload listen(port)
-	###
+	
 	listen: ->
 		@server = http.createServer (@onRequest.bind @)
 		@server.listen arguments...
-
-	###
-	@overload plugin(plugin)
-	  Plug plugin with current environment
-	  @param plugin [Object]
-	@overload plugin(plugin)
-	  Plug plugin
-	  @param plugin [Function<Happy>]
-	###
+	
 	plugin: (plugin) ->
 		if typeof plugin is "object"
 			if plugin[@config.environment]?
@@ -82,9 +70,6 @@ class Happy
 		else
 			plugin @
 	
-	###
-	@param environment [String]
-	###
 	environment: (environment) ->
 		@config.environment = environment
 
