@@ -27,10 +27,6 @@ class Happy
 		if x instanceof Function
 			@paramHandlers[name] = x
 	
-	###
-	Attach action to event
-	@param x [event: Function<Request, Response, Function>]
-	###
 	action: (x) ->
 		action = key x
 		handler = x[action]
@@ -92,8 +88,6 @@ class Happy
 	environment: (environment) ->
 		@config.environment = environment
 
-# ##Happy.global()
-# Создает новое приложение и прописывает его прототипом в глобольное пространство имен
 Happy.global = ->
 	global.__proto__ = new Happy
 
