@@ -10,6 +10,7 @@ class Happy
 		@actionHandlers = {}
 		@router = new Router()
 		@config = {}
+		@preHandlers = []
 		
 		@extended = false
 		@request = class extends Request
@@ -45,7 +46,11 @@ class Happy
 		[params, actions] = @router.match req.method, req.url
 		req.params = params
 		callbacks = []
-	
+		
+		for [path, fn] in @preHandlers
+			if req.url.indexOf path is 0
+				callbacks.push fn
+		
 		for param of params
 			if @paramHandlers[param]?
 				callbacks.push @paramHandlers[param]
@@ -72,6 +77,12 @@ class Happy
 	
 	environment: (environment) ->
 		@config.environment = environment
+	
+	pre: (path, fn) ->
+		if path?
+			@preHandlers.push [path, fn]
+		else
+			@preHandlers.push ["", fn]
 
 Happy.global = ->
 	global.__proto__ = new Happy
