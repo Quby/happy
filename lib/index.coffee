@@ -68,12 +68,12 @@ class Happy
 		@server = http.createServer (@onRequest.bind @)
 		@server.listen arguments...
 	
-	plugin: (plugin) ->
+	plugin: (plugin, settings) ->
 		if typeof plugin is "object"
 			if plugin[@config.environment]?
-				plugin[@config.environment] @
+				plugin[@config.environment] @, settings
 		else
-			plugin @
+			plugin @, settings
 	
 	environment: (environment) ->
 		@config.environment = environment

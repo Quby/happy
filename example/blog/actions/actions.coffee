@@ -1,4 +1,4 @@
-action post_index: (req, res, next) ->
+param page: (req, res, next) ->
 	if req.params.page?
 		req.page = parseInt req.params.page
 	else
@@ -6,4 +6,5 @@ action post_index: (req, res, next) ->
 	next()
 
 action post_index: (req, res) ->
-	res.render "./test"
+	res.end (res.test)
+	#res.render "./test"
